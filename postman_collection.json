@@ -1,0 +1,112 @@
+{
+  "info": {
+    "name": "Jitterbit Order API",
+    "description": "Collection para testar API de gerenciamento de pedidos",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": [""]
+        }
+      }
+    },
+    {
+      "name": "Criar Pedido",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"numeroPedido\": \"ORD-001\",\n  \"valorTotal\": 150.50,\n  \"dataCriacao\": \"2024-01-15\",\n  \"itens\": [\n    {\n      \"codigoProduto\": \"PROD-123\",\n      \"quantidade\": 2,\n      \"preco\": 50.25\n    },\n    {\n      \"codigoProduto\": \"PROD-456\",\n      \"quantidade\": 1,\n      \"preco\": 50.00\n    }\n  ]\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/order",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "order"]
+        }
+      }
+    },
+    {
+      "name": "Buscar Pedido por ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/order/ORD-001",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "order", "ORD-001"]
+        }
+      }
+    },
+    {
+      "name": "Listar Todos os Pedidos",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/order/list",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "order", "list"]
+        }
+      }
+    },
+    {
+      "name": "Atualizar Pedido",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"numeroPedido\": \"ORD-001\",\n  \"valorTotal\": 200.00,\n  \"dataCriacao\": \"2024-01-15\",\n  \"itens\": [\n    {\n      \"codigoProduto\": \"PROD-123\",\n      \"quantidade\": 3,\n      \"preco\": 50.25\n    },\n    {\n      \"codigoProduto\": \"PROD-456\",\n      \"quantidade\": 2,\n      \"preco\": 50.00\n    }\n  ]\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/order/ORD-001",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "order", "ORD-001"]
+        }
+      }
+    },
+    {
+      "name": "Deletar Pedido",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/order/ORD-001",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "order", "ORD-001"]
+        }
+      }
+    }
+  ]
+}
+
