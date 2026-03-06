@@ -44,23 +44,23 @@ Pronto! API rodando em: http://localhost:3000
 curl http://localhost:3000/
 
 # Teste 2: Criar um pedido
-curl -X POST http://localhost:3000/api/order \
+curl -X POST http://localhost:3000/order \
   -H "Content-Type: application/json" \
   -d '{
-    "numeroPedido": "ORD-001",
-    "valorTotal": 150.50,
-    "dataCriacao": "2024-01-15",
-    "itens": [
+    "numeroPedido": "v10089015vdb-01",
+    "valorTotal": 10000,
+    "dataCriacao": "2023-07-19T12:24:11.5299601+00:00",
+    "items": [
       {
-        "codigoProduto": "PROD-123",
-        "quantidade": 2,
-        "preco": 50.25
+        "idItem": "2434",
+        "quantidadeItem": 1,
+        "valorItem": 1000
       }
     ]
   }'
 
 # Teste 3: Listar pedidos
-curl http://localhost:3000/api/order/list
+curl http://localhost:3000/order/list
 ```
 
 ## 🧪 Rodar Testes
@@ -98,8 +98,8 @@ git push -u origin main
 - [ ] MongoDB configurado no `.env`
 - [ ] Servidor iniciando sem erros (`npm run dev`)
 - [ ] Endpoint raiz respondendo (GET /)
-- [ ] Criar pedido funcionando (POST /api/order)
-- [ ] Listar pedidos funcionando (GET /api/order/list)
+- [ ] Criar pedido funcionando (POST /order)
+- [ ] Listar pedidos funcionando (GET /order/list)
 - [ ] Testes passando (`npm test`)
 - [ ] Código no GitHub
 

@@ -39,22 +39,22 @@ test_health() {
 # Teste 2: Criar Pedido
 test_create() {
     echo -e "${YELLOW}Teste 2: Criar Pedido${NC}"
-    curl -s -X POST $BASE_URL/api/order \
+    curl -s -X POST $BASE_URL/order \
         -H "Content-Type: application/json" \
         -d '{
-            "numeroPedido": "ORD-TEST-001",
-            "valorTotal": 299.90,
-            "dataCriacao": "2026-03-06T10:00:00Z",
-            "itens": [
+            "numeroPedido": "v10089015vdb-01",
+            "valorTotal": 10000,
+            "dataCriacao": "2023-07-19T12:24:11.5299601+00:00",
+            "items": [
                 {
-                    "codigoProduto": "PROD-123",
-                    "quantidade": 2,
-                    "preco": 99.95
+                    "idItem": "2434",
+                    "quantidadeItem": 1,
+                    "valorItem": 1000
                 },
                 {
-                    "codigoProduto": "PROD-456",
-                    "quantidade": 1,
-                    "preco": 100.00
+                    "idItem": "2435",
+                    "quantidadeItem": 9,
+                    "valorItem": 1000
                 }
             ]
         }' | jq '.'
@@ -64,36 +64,36 @@ test_create() {
 # Teste 3: Buscar Pedido
 test_get() {
     echo -e "${YELLOW}Teste 3: Buscar Pedido por ID${NC}"
-    curl -s $BASE_URL/api/order/ORD-TEST-001 | jq '.'
+    curl -s $BASE_URL/order/v10089015vdb-01 | jq '.'
     echo ""
 }
 
 # Teste 4: Listar Pedidos
 test_list() {
     echo -e "${YELLOW}Teste 4: Listar Todos os Pedidos${NC}"
-    curl -s $BASE_URL/api/order/list | jq '.'
+    curl -s $BASE_URL/order/list | jq '.'
     echo ""
 }
 
 # Teste 5: Atualizar Pedido
 test_update() {
     echo -e "${YELLOW}Teste 5: Atualizar Pedido${NC}"
-    curl -s -X PUT $BASE_URL/api/order/ORD-TEST-001 \
+    curl -s -X PUT $BASE_URL/order/v10089015vdb-01 \
         -H "Content-Type: application/json" \
         -d '{
-            "numeroPedido": "ORD-TEST-001",
-            "valorTotal": 399.90,
-            "dataCriacao": "2026-03-06T10:00:00Z",
-            "itens": [
+            "numeroPedido": "v10089015vdb-01",
+            "valorTotal": 20000,
+            "dataCriacao": "2023-07-19T12:24:11.5299601+00:00",
+            "items": [
                 {
-                    "codigoProduto": "PROD-123",
-                    "quantidade": 3,
-                    "preco": 99.95
+                    "idItem": "2434",
+                    "quantidadeItem": 2,
+                    "valorItem": 2000
                 },
                 {
-                    "codigoProduto": "PROD-456",
-                    "quantidade": 1,
-                    "preco": 100.00
+                    "idItem": "2435",
+                    "quantidadeItem": 18,
+                    "valorItem": 1000
                 }
             ]
         }' | jq '.'
@@ -103,7 +103,7 @@ test_update() {
 # Teste 6: Deletar Pedido
 test_delete() {
     echo -e "${YELLOW}Teste 6: Deletar Pedido${NC}"
-    curl -s -X DELETE $BASE_URL/api/order/ORD-TEST-001 | jq '.'
+    curl -s -X DELETE $BASE_URL/order/v10089015vdb-01 | jq '.'
     echo ""
 }
 

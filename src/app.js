@@ -16,11 +16,12 @@ app.get('/', (req, res) => {
   });
 });
 
-// Rotas
-app.use('/api', orderRoutes);
+// Rotas - SEM prefixo /api conforme requisito
+app.use('/', orderRoutes);
 
 // Conectar ao banco de dados
-connectDB();
+connectDB().then(r => console.log('Conexão com MongoDB estabelecida com sucesso!'))
+  .catch(err => console.error('Erro ao conectar ao MongoDB:', err));
 
 module.exports = app;
 

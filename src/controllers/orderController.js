@@ -1,29 +1,31 @@
 const Order = require('../models/Order');
 
-// Função auxiliar para transformar dados de PT para EN
+// Função auxiliar para transformar dados conforme requisito
+// INPUT: numeroPedido, valorTotal, dataCriacao, items[idItem, quantidadeItem, valorItem]
+// OUTPUT: orderId, value, creationDate, items[productId, quantity, price]
 const transformToEnglish = (data) => {
   return {
     orderId: data.numeroPedido,
     value: data.valorTotal,
     creationDate: data.dataCriacao || new Date(),
-    items: data.itens.map(item => ({
-      productId: item.codigoProduto,
-      quantity: item.quantidade,
-      price: item.preco
+    items: data.items.map(item => ({
+      productId: parseInt(item.idItem),  // Converte string para number
+      quantity: item.quantidadeItem,
+      price: item.valorItem
     }))
   };
 };
 
-// Função auxiliar para transformar dados de EN para PT
+// Função auxiliar para transformar dados de EN para PT (resposta)
 const transformToPortuguese = (order) => {
   return {
     numeroPedido: order.orderId,
     valorTotal: order.value,
     dataCriacao: order.creationDate,
-    itens: order.items.map(item => ({
-      codigoProduto: item.productId,
-      quantidade: item.quantity,
-      preco: item.price
+    items: order.items.map(item => ({
+      idItem: item.productId.toString(),
+      quantidadeItem: item.quantity,
+      valorItem: item.price
     }))
   };
 };

@@ -97,27 +97,22 @@ npm run test:watch
 
 ## 📡 Endpoints da API
 
-### Base URL: `http://localhost:3000/api`
+### Base URL: `http://localhost:3000`
 
 ### 1. **Criar Pedido**
 ```http
-POST /api/order
+POST /order
 Content-Type: application/json
 
 {
-  "numeroPedido": "ORD-001",
-  "valorTotal": 150.50,
-  "dataCriacao": "2024-01-15",
-  "itens": [
+  "numeroPedido": "v10089015vdb-01",
+  "valorTotal": 10000,
+  "dataCriacao": "2023-07-19T12:24:11.5299601+00:00",
+  "items": [
     {
-      "codigoProduto": "PROD-123",
-      "quantidade": 2,
-      "preco": 50.25
-    },
-    {
-      "codigoProduto": "PROD-456",
-      "quantidade": 1,
-      "preco": 50.00
+      "idItem": "2434",
+      "quantidadeItem": 1,
+      "valorItem": 1000
     }
   ]
 }
@@ -128,52 +123,79 @@ Content-Type: application/json
 {
   "mensagem": "Pedido criado com sucesso",
   "pedido": {
-    "numeroPedido": "ORD-001",
-    "valorTotal": 150.50,
-    "dataCriacao": "2024-01-15T00:00:00.000Z",
-    "itens": ["..."]
+    "numeroPedido": "v10089015vdb-01",
+    "valorTotal": 10000,
+    "dataCriacao": "2023-07-19T12:24:11.529Z",
+    "items": [
+      {
+        "idItem": "2434",
+        "quantidadeItem": 1,
+        "valorItem": 1000
+      }
+    ]
   }
 }
 ```
 
 ### 2. **Buscar Pedido por ID**
 ```http
-GET /api/order/:id
+GET /order/:id
 ```
+
+**Exemplo:** `GET /order/v10089015vdb-01`
 
 **Resposta (200 OK):**
 ```json
 {
-  "numeroPedido": "ORD-001",
-  "valorTotal": 150.50,
-  "dataCriacao": "2024-01-15T00:00:00.000Z",
-  "itens": ["..."]
+  "numeroPedido": "v10089015vdb-01",
+  "valorTotal": 10000,
+  "dataCriacao": "2023-07-19T12:24:11.529Z",
+  "items": [
+    {
+      "idItem": "2434",
+      "quantidadeItem": 1,
+      "valorItem": 1000
+    }
+  ]
 }
 ```
 
 ### 3. **Listar Todos os Pedidos**
 ```http
-GET /api/order/list
+GET /order/list
 ```
 
 **Resposta (200 OK):**
 ```json
 {
   "total": 2,
-  "pedidos": ["..."]
+  "pedidos": [
+    {
+      "numeroPedido": "v10089015vdb-01",
+      "valorTotal": 10000,
+      "dataCriacao": "2023-07-19T12:24:11.529Z",
+      "items": [...]
+    }
+  ]
 }
 ```
 
 ### 4. **Atualizar Pedido**
 ```http
-PUT /api/order/:id
+PUT /order/:id
 Content-Type: application/json
 
 {
-  "numeroPedido": "ORD-001",
-  "valorTotal": 200.00,
-  "dataCriacao": "2024-01-15",
-  "itens": [...]
+  "numeroPedido": "v10089015vdb-01",
+  "valorTotal": 20000,
+  "dataCriacao": "2023-07-19T12:24:11.5299601+00:00",
+  "items": [
+    {
+      "idItem": "2434",
+      "quantidadeItem": 2,
+      "valorItem": 2000
+    }
+  ]
 }
 ```
 
@@ -181,20 +203,26 @@ Content-Type: application/json
 ```json
 {
   "mensagem": "Pedido atualizado com sucesso",
-  "pedido": ["..."]
+  "pedido": {
+    "numeroPedido": "v10089015vdb-01",
+    "valorTotal": 20000,
+    "items": [...]
+  }
 }
 ```
 
 ### 5. **Deletar Pedido**
 ```http
-DELETE /api/order/:id
+DELETE /order/:id
 ```
+
+**Exemplo:** `DELETE /order/v10089015vdb-01`
 
 **Resposta (200 OK):**
 ```json
 {
   "mensagem": "Pedido deletado com sucesso",
-  "numeroPedido": "ORD-001"
+  "numeroPedido": "v10089015vdb-01"
 }
 ```
 

@@ -76,11 +76,11 @@ npm test
 | Método | Endpoint | Descrição |
 |--------|----------|-----------|
 | GET | `/` | Health check |
-| POST | `/api/order` | Criar pedido |
-| GET | `/api/order/:id` | Buscar pedido |
-| GET | `/api/order/list` | Listar pedidos |
-| PUT | `/api/order/:id` | Atualizar pedido |
-| DELETE | `/api/order/:id` | Deletar pedido |
+| POST | `/order` | Criar pedido |
+| GET | `/order/:id` | Buscar pedido |
+| GET | `/order/list` | Listar pedidos |
+| PUT | `/order/:id` | Atualizar pedido |
+| DELETE | `/order/:id` | Deletar pedido |
 
 ## 🧪 Executar Testes
 
@@ -129,16 +129,17 @@ Acesse: http://localhost:3000
 **Usando cURL:**
 ```bash
 # Criar pedido
-curl -X POST http://localhost:3000/api/order \
+curl -X POST http://localhost:3000/order \
   -H "Content-Type: application/json" \
   -d '{
-    "numeroPedido": "ORD-001",
-    "valorTotal": 150.50,
-    "itens": [
+    "numeroPedido": "v10089015vdb-01",
+    "valorTotal": 10000,
+    "dataCriacao": "2023-07-19T12:24:11.5299601+00:00",
+    "items": [
       {
-        "codigoProduto": "PROD-123",
-        "quantidade": 2,
-        "preco": 75.25
+        "idItem": "2434",
+        "quantidadeItem": 1,
+        "valorItem": 1000
       }
     ]
   }'
@@ -199,16 +200,30 @@ A API recebe dados em **português** e armazena em **inglês**:
 ```javascript
 // Entrada (Português)
 {
-  "numeroPedido": "ORD-001",
-  "valorTotal": 150.50,
-  "itens": [...]
+  "numeroPedido": "v10089015vdb-01",
+  "valorTotal": 10000,
+  "dataCriacao": "2023-07-19T12:24:11.5299601+00:00",
+  "items": [
+    {
+      "idItem": "2434",
+      "quantidadeItem": 1,
+      "valorItem": 1000
+    }
+  ]
 }
 
 // Banco de Dados (Inglês)
 {
-  "orderId": "ORD-001",
-  "value": 150.50,
-  "items": [...]
+  "orderId": "v10089015vdb-01",
+  "value": 10000,
+  "creationDate": "2023-07-19T12:24:11.529Z",
+  "items": [
+    {
+      "productId": 2434,  // convertido para Number
+      "quantity": 1,
+      "price": 1000
+    }
+  ]
 }
 ```
 

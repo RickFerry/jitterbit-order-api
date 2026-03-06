@@ -21,47 +21,48 @@ afterAll(async () => {
 
 describe('Order API Tests', () => {
 
+  // Mock de pedido conforme requisito do teste Jitterbit
   const mockOrderPT = {
-    numeroPedido: 'ORD-001',
-    valorTotal: 150.50,
-    dataCriacao: new Date('2024-01-15'),
-    itens: [
+    numeroPedido: 'v10089015vdb-01',
+    valorTotal: 10000,
+    dataCriacao: '2023-07-19T12:24:11.5299601+00:00',
+    items: [
       {
-        codigoProduto: 'PROD-123',
-        quantidade: 2,
-        preco: 50.25
+        idItem: '2434',
+        quantidadeItem: 1,
+        valorItem: 1000
       },
       {
-        codigoProduto: 'PROD-456',
-        quantidade: 1,
-        preco: 50.00
+        idItem: '2435',
+        quantidadeItem: 2,
+        valorItem: 4500
       }
     ]
   };
 
-  describe('POST /api/order', () => {
+  describe('POST /order', () => {
     it('deve criar um pedido com sucesso e retornar status 201', async () => {
       const response = await request(app)
-        .post('/api/order')
+        .post('/order')
         .send(mockOrderPT)
         .expect('Content-Type', /json/)
         .expect(201);
 
       expect(response.body).toHaveProperty('mensagem');
       expect(response.body).toHaveProperty('pedido');
-      expect(response.body.pedido.numeroPedido).toBe('ORD-001');
-      expect(response.body.pedido.valorTotal).toBe(150.50);
+      expect(response.body.pedido.numeroPedido).toBe('v10089015vdb-01');
+      expect(response.body.pedido.valorTotal).toBe(10000);
     });
 
     it('deve retornar erro 400 ao tentar criar pedido com número duplicado', async () => {
       // Criar primeiro pedido
       await request(app)
-        .post('/api/order')
+        .post('/order')
         .send(mockOrderPT);
 
       // Tentar criar com mesmo número
       const response = await request(app)
-        .post('/api/order')
+        .post('/order')
         .send(mockOrderPT)
         .expect(400);
 
@@ -70,60 +71,61 @@ describe('Order API Tests', () => {
 
     it('deve transformar dados de PT para EN no banco de dados', async () => {
       await request(app)
-        .post('/api/order')
+        .post('/order')
         .send(mockOrderPT);
 
-      const orderInDB = await Order.findOne({ orderId: 'ORD-001' });
+      const orderInDB = await Order.findOne({ orderId: 'v10089015vdb-01' });
 
       expect(orderInDB).toBeDefined();
-      expect(orderInDB.orderId).toBe('ORD-001');
-      expect(orderInDB.value).toBe(150.50);
+      expect(orderInDB.orderId).toBe('v10089015vdb-01');
+      expect(orderInDB.value).toBe(10000);
       expect(orderInDB.items).toHaveLength(2);
-      expect(orderInDB.items[0].productId).toBe('PROD-123');
+      expect(orderInDB.items[0].productId).toBe(2434);
+      expect(typeof orderInDB.items[0].productId).toBe('number');
     });
   });
 
-  describe('GET /api/order/:id', () => {
+  describe('GET /order/:id', () => {
     it('deve retornar um pedido específico com status 200', async () => {
       // Criar pedido primeiro
       await request(app)
-        .post('/api/order')
+        .post('/order')
         .send(mockOrderPT);
 
       // Buscar pedido
       const response = await request(app)
-        .get('/api/order/ORD-001')
+        .get('/order/v10089015vdb-01')
         .expect('Content-Type', /json/)
         .expect(200);
 
-      expect(response.body.numeroPedido).toBe('ORD-001');
-      expect(response.body.valorTotal).toBe(150.50);
+      expect(response.body.numeroPedido).toBe('v10089015vdb-01');
+      expect(response.body.valorTotal).toBe(10000);
     });
 
     it('deve retornar 404 para pedido não encontrado', async () => {
       const response = await request(app)
-        .get('/api/order/ORD-999')
+        .get('/order/ORD-999')
         .expect(404);
 
       expect(response.body).toHaveProperty('erro');
     });
   });
 
-  describe('GET /api/order/list', () => {
+  describe('GET /order/list', () => {
     it('deve retornar lista de todos os pedidos com status 200', async () => {
       // Criar múltiplos pedidos
       await request(app)
-        .post('/api/order')
+        .post('/order')
         .send(mockOrderPT);
 
-      const order2 = { ...mockOrderPT, numeroPedido: 'ORD-002' };
+      const order2 = { ...mockOrderPT, numeroPedido: 'v10089016vdb-02' };
       await request(app)
-        .post('/api/order')
+        .post('/order')
         .send(order2);
 
       // Buscar lista
       const response = await request(app)
-        .get('/api/order/list')
+        .get('/order/list')
         .expect('Content-Type', /json/)
         .expect(200);
 
@@ -135,7 +137,7 @@ describe('Order API Tests', () => {
 
     it('deve retornar lista vazia quando não há pedidos', async () => {
       const response = await request(app)
-        .get('/api/order/list')
+        .get('/order/list')
         .expect(200);
 
       expect(response.body.total).toBe(0);
@@ -143,32 +145,32 @@ describe('Order API Tests', () => {
     });
   });
 
-  describe('PUT /api/order/:id', () => {
+  describe('PUT /order/:id', () => {
     it('deve atualizar um pedido com sucesso e retornar status 200', async () => {
       // Criar pedido
       await request(app)
-        .post('/api/order')
+        .post('/order')
         .send(mockOrderPT);
 
       // Atualizar pedido
       const updatedOrder = {
         ...mockOrderPT,
-        valorTotal: 200.00
+        valorTotal: 20000
       };
 
       const response = await request(app)
-        .put('/api/order/ORD-001')
+        .put('/order/v10089015vdb-01')
         .send(updatedOrder)
         .expect('Content-Type', /json/)
         .expect(200);
 
       expect(response.body).toHaveProperty('mensagem');
-      expect(response.body.pedido.valorTotal).toBe(200.00);
+      expect(response.body.pedido.valorTotal).toBe(20000);
     });
 
     it('deve retornar 404 ao tentar atualizar pedido inexistente', async () => {
       const response = await request(app)
-        .put('/api/order/ORD-999')
+        .put('/order/ORD-999')
         .send(mockOrderPT)
         .expect(404);
 
@@ -176,30 +178,30 @@ describe('Order API Tests', () => {
     });
   });
 
-  describe('DELETE /api/order/:id', () => {
+  describe('DELETE /order/:id', () => {
     it('deve deletar um pedido com sucesso e retornar status 200', async () => {
       // Criar pedido
       await request(app)
-        .post('/api/order')
+        .post('/order')
         .send(mockOrderPT);
 
       // Deletar pedido
       const response = await request(app)
-        .delete('/api/order/ORD-001')
+        .delete('/order/v10089015vdb-01')
         .expect('Content-Type', /json/)
         .expect(200);
 
       expect(response.body).toHaveProperty('mensagem');
-      expect(response.body.numeroPedido).toBe('ORD-001');
+      expect(response.body.numeroPedido).toBe('v10089015vdb-01');
 
       // Verificar que foi deletado
-      const orderInDB = await Order.findOne({ orderId: 'ORD-001' });
+      const orderInDB = await Order.findOne({ orderId: 'v10089015vdb-01' });
       expect(orderInDB).toBeNull();
     });
 
     it('deve retornar 404 ao tentar deletar pedido inexistente', async () => {
       const response = await request(app)
-        .delete('/api/order/ORD-999')
+        .delete('/order/ORD-999')
         .expect(404);
 
       expect(response.body).toHaveProperty('erro');

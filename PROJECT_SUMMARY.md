@@ -48,11 +48,11 @@ jitterbit-order-api/
 ## 🎯 Requisitos Atendidos
 
 ### ✅ Funcionalidades (CRUD Completo)
-- [x] **CREATE** - POST /api/order
-- [x] **READ ONE** - GET /api/order/:id
-- [x] **READ ALL** - GET /api/order/list
-- [x] **UPDATE** - PUT /api/order/:id
-- [x] **DELETE** - DELETE /api/order/:id
+- [x] **CREATE** - POST /order
+- [x] **READ ONE** - GET /order/:id
+- [x] **READ ALL** - GET /order/list
+- [x] **UPDATE** - PUT /order/:id
+- [x] **DELETE** - DELETE /order/:id
 
 ### ✅ Arquitetura
 - [x] Padrão MVC implementado

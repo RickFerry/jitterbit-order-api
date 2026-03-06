@@ -1,7 +1,7 @@
 {
   "info": {
     "name": "Jitterbit Order API",
-    "description": "Collection para testar API de gerenciamento de pedidos",
+    "description": "Collection para testar API de gerenciamento de pedidos - Formato conforme requisito do teste",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "item": [
@@ -31,14 +31,14 @@
         ],
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"numeroPedido\": \"ORD-001\",\n  \"valorTotal\": 150.50,\n  \"dataCriacao\": \"2024-01-15\",\n  \"itens\": [\n    {\n      \"codigoProduto\": \"PROD-123\",\n      \"quantidade\": 2,\n      \"preco\": 50.25\n    },\n    {\n      \"codigoProduto\": \"PROD-456\",\n      \"quantidade\": 1,\n      \"preco\": 50.00\n    }\n  ]\n}"
+          "raw": "{\n  \"numeroPedido\": \"v10089015vdb-01\",\n  \"valorTotal\": 10000,\n  \"dataCriacao\": \"2023-07-19T12:24:11.5299601+00:00\",\n  \"items\": [\n    {\n      \"idItem\": \"2434\",\n      \"quantidadeItem\": 1,\n      \"valorItem\": 1000\n    },\n    {\n      \"idItem\": \"2435\",\n      \"quantidadeItem\": 9,\n      \"valorItem\": 1000\n    }\n  ]\n}"
         },
         "url": {
-          "raw": "http://localhost:3000/api/order",
+          "raw": "http://localhost:3000/order",
           "protocol": "http",
           "host": ["localhost"],
           "port": "3000",
-          "path": ["api", "order"]
+          "path": ["order"]
         }
       }
     },
@@ -48,11 +48,11 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "http://localhost:3000/api/order/ORD-001",
+          "raw": "http://localhost:3000/order/v10089015vdb-01",
           "protocol": "http",
           "host": ["localhost"],
           "port": "3000",
-          "path": ["api", "order", "ORD-001"]
+          "path": ["order", "v10089015vdb-01"]
         }
       }
     },
@@ -62,11 +62,11 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "http://localhost:3000/api/order/list",
+          "raw": "http://localhost:3000/order/list",
           "protocol": "http",
           "host": ["localhost"],
           "port": "3000",
-          "path": ["api", "order", "list"]
+          "path": ["order", "list"]
         }
       }
     },
@@ -82,14 +82,14 @@
         ],
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"numeroPedido\": \"ORD-001\",\n  \"valorTotal\": 200.00,\n  \"dataCriacao\": \"2024-01-15\",\n  \"itens\": [\n    {\n      \"codigoProduto\": \"PROD-123\",\n      \"quantidade\": 3,\n      \"preco\": 50.25\n    },\n    {\n      \"codigoProduto\": \"PROD-456\",\n      \"quantidade\": 2,\n      \"preco\": 50.00\n    }\n  ]\n}"
+          "raw": "{\n  \"numeroPedido\": \"v10089015vdb-01\",\n  \"valorTotal\": 20000,\n  \"dataCriacao\": \"2023-07-19T12:24:11.5299601+00:00\",\n  \"items\": [\n    {\n      \"idItem\": \"2434\",\n      \"quantidadeItem\": 2,\n      \"valorItem\": 2000\n    },\n    {\n      \"idItem\": \"2435\",\n      \"quantidadeItem\": 18,\n      \"valorItem\": 1000\n    }\n  ]\n}"
         },
         "url": {
-          "raw": "http://localhost:3000/api/order/ORD-001",
+          "raw": "http://localhost:3000/order/v10089015vdb-01",
           "protocol": "http",
           "host": ["localhost"],
           "port": "3000",
-          "path": ["api", "order", "ORD-001"]
+          "path": ["order", "v10089015vdb-01"]
         }
       }
     },
@@ -99,11 +99,11 @@
         "method": "DELETE",
         "header": [],
         "url": {
-          "raw": "http://localhost:3000/api/order/ORD-001",
+          "raw": "http://localhost:3000/order/v10089015vdb-01",
           "protocol": "http",
           "host": ["localhost"],
           "port": "3000",
-          "path": ["api", "order", "ORD-001"]
+          "path": ["order", "v10089015vdb-01"]
         }
       }
     }
